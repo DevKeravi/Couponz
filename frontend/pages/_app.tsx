@@ -13,6 +13,7 @@ import wrapper from "../store/configureStore";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Title } = Typography;
+const { SubMenu } = Menu;
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -31,11 +32,13 @@ function MyApp({ Component, pageProps }: AppProps) {
             </a>
           </Link>
           <Menu theme="light" mode="inline" defaultSelectedKeys={["4"]}>
-            <Menu.Item key="1" icon={<UserOutlined />}>
-              <Link href="/coupon/list" passHref>
-                <a>내 쿠폰</a>
-              </Link>
-            </Menu.Item>
+            <SubMenu title="쿠폰" icon={<UserOutlined />}>
+              <Menu.Item key="1">
+                <Link href="/coupon/list" passHref>
+                  <a>내 쿠폰 목록</a>
+                </Link>
+              </Menu.Item>
+            </SubMenu>
             <Menu.Item key="2" icon={<VideoCameraOutlined />}>
               쿠폰 마켓
             </Menu.Item>

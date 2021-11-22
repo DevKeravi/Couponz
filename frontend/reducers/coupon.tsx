@@ -12,6 +12,41 @@ export interface CouponProp {
   expired: boolean;
   isUsed: boolean;
 }
+export interface ICouponState {
+  couponList: CouponProp[];
+  couponDetail: CouponProp;
+  getCouponListLoading: boolean;
+  getCouponListDone: boolean;
+  getCouponListError: any;
+  getCouponDetailLoading: boolean;
+  getCouponDetailDone: boolean;
+  getCouponDetailError: any;
+  addCouponLoading: boolean;
+  addCouponDone: boolean;
+  addCouponError: any;
+}
+
+const CouponInitialState: CouponProp = {
+  id: "0",
+  name: "null",
+  serial: "null",
+  qty: 0,
+  expired: true,
+  isUsed: true,
+};
+const initialState: ICouponState = {
+  couponList: [CouponInitialState],
+  couponDetail: CouponInitialState,
+  getCouponListLoading: false,
+  getCouponListDone: false,
+  getCouponListError: null,
+  getCouponDetailLoading: false,
+  getCouponDetailDone: false,
+  getCouponDetailError: null,
+  addCouponLoading: false,
+  addCouponDone: false,
+  addCouponError: null,
+};
 
 export const CouponListMokup: CouponProp[] = [
   {
@@ -42,36 +77,6 @@ export const CouponListMokup: CouponProp[] = [
     isUsed: true,
   },
 ];
-
-export interface ICouponState {
-  couponList: CouponProp[];
-  couponDetail: CouponProp;
-  getCouponListLoading: boolean;
-  getCouponListDone: boolean;
-  getCouponListError: any;
-  getCouponDetailLoading: boolean;
-  getCouponDetailDone: boolean;
-  getCouponDetailError: any;
-}
-
-const CouponInitialState: CouponProp = {
-  id: "0",
-  name: "null",
-  serial: "null",
-  qty: 0,
-  expired: true,
-  isUsed: true,
-};
-const initialState: ICouponState = {
-  couponList: [CouponInitialState],
-  couponDetail: CouponInitialState,
-  getCouponListLoading: false,
-  getCouponListDone: false,
-  getCouponListError: null,
-  getCouponDetailLoading: false,
-  getCouponDetailDone: false,
-  getCouponDetailError: null,
-};
 
 const couponSlice = createSlice({
   name: "coupon",
@@ -105,6 +110,20 @@ const couponSlice = createSlice({
       state.getCouponDetailLoading = false;
       state.getCouponDetailError = action.payload;
     },
+    ADD_COUPON_REQUEST(state: ICouponState, action: AnyAction) {
+      state.addCouponLoading = true;
+      state.addCouponError = null;
+    },
+    ADD_COUPON_SUCCESS(state: ICouponState, action: AnyAction) {
+      state.addCouponLoading = false;
+      state.addCouponError = null;
+      //목업
+      state.couponList.push(action.payload);
+    },
+    ADD_COUPON_FAILURE(state: ICouponState, action: AnyAction) {
+      state.addCouponLoading = false;
+      state.addCouponError = action.payload;
+    },
   },
 });
 
@@ -117,5 +136,8 @@ export const {
   GET_COUPON_DETAIL_REQUEST,
   GET_COUPON_DETAIL_SUCCESS,
   GET_COUPON_DETAIL_FAILURE,
+  ADD_COUPON_REQUEST,
+  ADD_COUPON_SUCCESS,
+  ADD_COUPON_FAILURE,
 } = actions;
 export default reducer;

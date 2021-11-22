@@ -1,6 +1,8 @@
 import { Row, Col, Image, Typography, Button } from "antd";
 import { useSelector } from "react-redux";
 import { placeholdUrl } from "../../define";
+import { useCallback } from "react";
+import Link from "next/link";
 import {
   GET_COUPON_DETAIL_REQUEST,
   GET_COUPON_DETAIL_SUCCESS,
@@ -14,7 +16,11 @@ const CouponDetail = () => {
   return (
     <>
       <Row justify="end">
-        <Button>목록으로</Button>
+        <Link href="/coupon/list">
+          <a>
+            <Button>목록으로</Button>
+          </a>
+        </Link>
       </Row>
       <Row justify="center">
         <Col>
