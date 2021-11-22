@@ -11,6 +11,7 @@ export interface CouponProp {
   qty: number;
   expired: boolean;
   isUsed: boolean;
+  isPresent: boolean;
 }
 export interface ICouponState {
   couponList: CouponProp[];
@@ -33,6 +34,7 @@ const CouponInitialState: CouponProp = {
   qty: 0,
   expired: true,
   isUsed: true,
+  isPresent: true,
 };
 const initialState: ICouponState = {
   couponList: [CouponInitialState],
@@ -58,6 +60,7 @@ export const CouponListMokup: CouponProp[] = [
     image_link: placeholdUrl + "1920x1080",
     expired: false,
     isUsed: false,
+    isPresent: false,
   },
   {
     id: "2",
@@ -66,6 +69,7 @@ export const CouponListMokup: CouponProp[] = [
     qty: 1,
     expired: true,
     isUsed: false,
+    isPresent: true,
   },
   {
     id: "3",
@@ -75,6 +79,7 @@ export const CouponListMokup: CouponProp[] = [
     qty: 2,
     expired: false,
     isUsed: true,
+    isPresent: false,
   },
 ];
 

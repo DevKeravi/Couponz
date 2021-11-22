@@ -31,17 +31,36 @@ function MyApp({ Component, pageProps }: AppProps) {
               ></div>
             </a>
           </Link>
-          <Menu theme="light" mode="inline" defaultSelectedKeys={["4"]}>
+          <Menu theme="light" mode="inline">
             <SubMenu title="쿠폰" icon={<UserOutlined />}>
-              <Menu.Item key="1">
+              <Menu.Item key="couponList">
                 <Link href="/coupon/list" passHref>
                   <a>내 쿠폰 목록</a>
                 </Link>
               </Menu.Item>
+              <Menu.Item key="couponPresent">
+                <Link href="/coupon/present" passHref>
+                  <a>선물 하기</a>
+                </Link>
+              </Menu.Item>
             </SubMenu>
-            <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-              쿠폰 마켓
-            </Menu.Item>
+            <SubMenu title="쿠폰 마켓" icon={<VideoCameraOutlined />}>
+              <Menu.Item key="buyCoupon">
+                <Link href="/market/buy">
+                  <a>구매 하기</a>
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="sellCoupon">
+                <Link href="/market/sell">
+                  <a>판매 하기</a>
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="shareCoupon">
+                <Link href="/market/share">
+                  <a>나눔 하기</a>
+                </Link>
+              </Menu.Item>
+            </SubMenu>
             <Menu.Item key="3" icon={<UploadOutlined />}>
               친구
             </Menu.Item>

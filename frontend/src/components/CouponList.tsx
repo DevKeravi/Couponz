@@ -103,6 +103,9 @@ const CouponList = () => {
           </Button>
         </Col>
       </Row>
+      <Row>
+        <Col>쿠폰을 누르시면 상세정보를 보실 수 있습니다.</Col>
+      </Row>
       <Row gutter={16}>
         {couponList[0].qty !== 0 ? (
           couponList.map((v: CouponProp) => (
