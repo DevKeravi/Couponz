@@ -25,6 +25,12 @@ export interface ICouponState {
   addCouponLoading: boolean;
   addCouponDone: boolean;
   addCouponError: any;
+  editCouponLoading: boolean;
+  editCouponDone: boolean;
+  editCouponError: any;
+  deleteCouponLoading: boolean;
+  deleteCouponDone: boolean;
+  deleteCouponError: any;
 }
 
 const CouponInitialState: CouponProp = {
@@ -48,6 +54,12 @@ const initialState: ICouponState = {
   addCouponLoading: false,
   addCouponDone: false,
   addCouponError: null,
+  editCouponLoading: false,
+  editCouponDone: false,
+  editCouponError: null,
+  deleteCouponLoading: false,
+  deleteCouponDone: false,
+  deleteCouponError: null,
 };
 
 export const CouponListMokup: CouponProp[] = [
@@ -61,6 +73,7 @@ export const CouponListMokup: CouponProp[] = [
     expired: false,
     isUsed: false,
     isPresent: false,
+    limit: "2021-12-04",
   },
   {
     id: "2",
@@ -70,6 +83,7 @@ export const CouponListMokup: CouponProp[] = [
     expired: true,
     isUsed: false,
     isPresent: true,
+    limit: "2022-04-04",
   },
   {
     id: "3",
@@ -122,12 +136,46 @@ const couponSlice = createSlice({
     ADD_COUPON_SUCCESS(state: ICouponState, action: AnyAction) {
       state.addCouponLoading = false;
       state.addCouponError = null;
-      //목업
       state.couponList.push(action.payload);
     },
     ADD_COUPON_FAILURE(state: ICouponState, action: AnyAction) {
       state.addCouponLoading = false;
       state.addCouponError = action.payload;
+    },
+    EDIT_COUPON_REQUEST(state: ICouponState, action: AnyAction) {
+      state.editCouponLoading = true;
+      state.editCouponError = null;
+    },
+    EDIT_COUPON_SUCCESS(state: ICouponState, action: AnyAction) {
+      state.editCouponLoading = false;
+      state.editCouponError = null;
+
+      const idx = state.couponList.findIndex((coupon) => {
+        return coupon.id === action.payload.id;
+      });
+
+      state.couponList[idx] = action.payload;
+    },
+    EDIT_COUPON_FAILURE(state: ICouponState, action: AnyAction) {
+      state.editCouponLoading = false;
+      state.editCouponError = action.payload;
+    },
+    DELETE_COUPON_REQUEST(state: ICouponState, action: AnyAction) {
+      state.deleteCouponLoading = true;
+      state.deleteCouponError = null;
+    },
+    DELETE_COUPON_SUCCESS(state: ICouponState, action: AnyAction) {
+      state.deleteCouponLoading = false;
+      state.deleteCouponError = null;
+
+      const idx = state.couponList.findIndex((coupon) => {
+        return coupon.id === action.payload.id;
+      });
+      state.couponList.splice(idx, 1);
+    },
+    DELETE_COUPON_FAILURE(state: ICouponState, action: AnyAction) {
+      state.deleteCouponLoading = false;
+      state.deleteCouponError = action.payload;
     },
   },
 });
@@ -144,5 +192,11 @@ export const {
   ADD_COUPON_REQUEST,
   ADD_COUPON_SUCCESS,
   ADD_COUPON_FAILURE,
+  EDIT_COUPON_REQUEST,
+  EDIT_COUPON_SUCCESS,
+  EDIT_COUPON_FAILURE,
+  DELETE_COUPON_REQUEST,
+  DELETE_COUPON_SUCCESS,
+  DELETE_COUPON_FAILURE,
 } = actions;
 export default reducer;
