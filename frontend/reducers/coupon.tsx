@@ -104,10 +104,12 @@ const couponSlice = createSlice({
     GET_COUPON_LIST_REQUEST(state: ICouponState, action: AnyAction) {
       state.getCouponListLoading = true;
       state.getCouponListError = null;
+      state.getCouponListDone = false;
     },
     GET_COUPON_LIST_SUCCESS(state: ICouponState, action: AnyAction) {
       state.getCouponListLoading = false;
       state.getCouponListError = null;
+      state.getCouponListDone = true;
       // 임시 목업
       state.couponList = CouponListMokup;
     },
@@ -117,11 +119,13 @@ const couponSlice = createSlice({
     },
     GET_COUPON_DETAIL_REQUEST(state: ICouponState, action: AnyAction) {
       state.getCouponDetailLoading = true;
+      state.getCouponDetailDone = false;
       state.getCouponDetailError = null;
     },
     GET_COUPON_DETAIL_SUCCESS(state: ICouponState, action: AnyAction) {
       state.getCouponDetailLoading = false;
       state.getCouponDetailError = null;
+      state.getCouponDetailDone = true;
       //목업
       state.couponDetail = CouponListMokup[action.payload - 1];
     },
@@ -132,10 +136,12 @@ const couponSlice = createSlice({
     ADD_COUPON_REQUEST(state: ICouponState, action: AnyAction) {
       state.addCouponLoading = true;
       state.addCouponError = null;
+      state.addCouponDone = false;
     },
     ADD_COUPON_SUCCESS(state: ICouponState, action: AnyAction) {
       state.addCouponLoading = false;
       state.addCouponError = null;
+      state.addCouponDone = true;
       state.couponList.push(action.payload);
     },
     ADD_COUPON_FAILURE(state: ICouponState, action: AnyAction) {
@@ -144,10 +150,12 @@ const couponSlice = createSlice({
     },
     EDIT_COUPON_REQUEST(state: ICouponState, action: AnyAction) {
       state.editCouponLoading = true;
+      state.editCouponDone = false;
       state.editCouponError = null;
     },
     EDIT_COUPON_SUCCESS(state: ICouponState, action: AnyAction) {
       state.editCouponLoading = false;
+      state.editCouponDone = true;
       state.editCouponError = null;
 
       const idx = state.couponList.findIndex((coupon) => {
@@ -162,10 +170,12 @@ const couponSlice = createSlice({
     },
     DELETE_COUPON_REQUEST(state: ICouponState, action: AnyAction) {
       state.deleteCouponLoading = true;
+      state.deleteCouponDone = false;
       state.deleteCouponError = null;
     },
     DELETE_COUPON_SUCCESS(state: ICouponState, action: AnyAction) {
       state.deleteCouponLoading = false;
+      state.deleteCouponDone = true;
       state.deleteCouponError = null;
 
       const idx = state.couponList.findIndex((coupon) => {

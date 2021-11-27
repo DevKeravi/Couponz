@@ -1,9 +1,11 @@
 import { HYDRATE } from "next-redux-wrapper";
 import { AnyAction, combineReducers } from "redux";
 import coupon, { ICouponState } from "./coupon";
+import user, { IUserState } from "./user";
 
 export type State = {
   coupon: ICouponState;
+  user: IUserState;
 };
 
 const rootReducer = (state: State | undefined, action: AnyAction) => {
@@ -13,6 +15,7 @@ const rootReducer = (state: State | undefined, action: AnyAction) => {
     default: {
       const combineReducer = combineReducers({
         coupon,
+        user,
       });
       return combineReducer(state, action);
     }

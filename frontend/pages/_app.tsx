@@ -1,6 +1,6 @@
 import type { AppProps } from "next/app";
 import "antd/dist/antd.css";
-import { Image, Layout, Menu, Typography } from "antd";
+import { Button, Col, Image, Layout, Menu, Row, Typography } from "antd";
 import Link from "next/link";
 import {
   UploadOutlined,
@@ -10,6 +10,7 @@ import {
 import "../styles/index.scss";
 import { SSRProvider } from "@react-aria/ssr";
 import wrapper from "../store/configureStore";
+import Text from "antd/lib/typography/Text";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Title } = Typography;
@@ -32,6 +33,11 @@ function MyApp({ Component, pageProps }: AppProps) {
             </a>
           </Link>
           <Menu theme="light" mode="inline">
+            <Menu.Item key="5" icon={<UserOutlined />}>
+              <Link href="/user/login" passHref>
+                <a>계정 연결</a>
+              </Link>
+            </Menu.Item>
             <SubMenu title="쿠폰" icon={<UserOutlined />}>
               <Menu.Item key="couponList">
                 <Link href="/coupon/list" passHref>
@@ -70,11 +76,12 @@ function MyApp({ Component, pageProps }: AppProps) {
           </Menu>
         </Sider>
         <Layout>
-          <Header
-            className="site-layout-sub-header-background"
-            style={{ padding: 0, textAlign: "center" }}
-          >
-            <Title>CouponZ</Title>
+          <Header className="site-layout-sub-header-background">
+            <Row justify="center">
+              <Col>
+                <Text>CouponZ</Text>
+              </Col>
+            </Row>
           </Header>
           <Content style={{ margin: "24px 16px 0" }}>
             <div
