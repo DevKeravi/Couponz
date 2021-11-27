@@ -11,12 +11,21 @@ import "../styles/index.scss";
 import { SSRProvider } from "@react-aria/ssr";
 import wrapper from "../store/configureStore";
 import Text from "antd/lib/typography/Text";
+import { useSelector } from "react-redux";
+import {
+  GET_USER_DATA_FAILURE,
+  GET_USER_DATA_REQUEST,
+  GET_USER_DATA_SUCCESS,
+} from "../reducers/user";
+import axios from "axios";
+import { defaultAPIUrl } from "../define";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Title } = Typography;
 const { SubMenu } = Menu;
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const { userData } = useSelector((state: any) => state.user);
   return (
     <SSRProvider>
       <Layout>
@@ -33,11 +42,17 @@ function MyApp({ Component, pageProps }: AppProps) {
             </a>
           </Link>
           <Menu theme="light" mode="inline">
-            <Menu.Item key="5" icon={<UserOutlined />}>
-              <Link href="/user/login" passHref>
-                <a>계정 연결</a>
-              </Link>
-            </Menu.Item>
+            {userData.name !== "" ? (
+              <Menu.Item key="userName" icon={<UserOutlined />}>
+                {userData.name}
+              </Menu.Item>
+            ) : (
+              <Menu.Item key="signIn" icon={<UserOutlined />}>
+                <Link href="/user/login" passHref>
+                  <a>계정 연결</a>
+                </Link>
+              </Menu.Item>
+            )}
             <SubMenu title="쿠폰" icon={<UserOutlined />}>
               <Menu.Item key="couponList">
                 <Link href="/coupon/list" passHref>
@@ -67,10 +82,10 @@ function MyApp({ Component, pageProps }: AppProps) {
                 </Link>
               </Menu.Item>
             </SubMenu>
-            <Menu.Item key="3" icon={<UploadOutlined />}>
+            <Menu.Item key="friends" icon={<UploadOutlined />}>
               친구
             </Menu.Item>
-            <Menu.Item key="4" icon={<UserOutlined />}>
+            <Menu.Item key="myProfile" icon={<UserOutlined />}>
               내 정보
             </Menu.Item>
           </Menu>
@@ -99,5 +114,22 @@ function MyApp({ Component, pageProps }: AppProps) {
     </SSRProvider>
   );
 }
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) =>
+    async ({ res, req }) => {
+      store.dispatch(GET_USER_DATA_REQUEST());
 
+      try {
+        const resp = await axios.get(defaultAPIUrl + "user");
+        store.dispatch({
+          type: GET_USER_DATA_SUCCESS.type,
+          payload: resp.data,
+        });
+      } catch (error) {
+        store.dispatch({ type: GET_USER_DATA_FAILURE.type, payload: error });
+      }
+
+      return { props: {} };
+    }
+);
 export default wrapper.withRedux(MyApp);

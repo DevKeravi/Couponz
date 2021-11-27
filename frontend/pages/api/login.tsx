@@ -1,7 +1,7 @@
 import { placeholdUrl } from "../../define";
 import { userProp } from "../../reducers/user";
 
-const dummyUser: userProp[] = [
+export const dummyUser: userProp[] = [
   {
     id: "cmkrosp@naver.com",
     name: "채성렬",

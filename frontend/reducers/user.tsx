@@ -20,8 +20,8 @@ export interface IUserState {
 
 const userInitialState: IUserState = {
   userData: {
-    id: "anonymous@keravi.com",
-    name: "annoymous",
+    id: "",
+    name: "",
     avatar_url: "",
   },
   friendList: [],
